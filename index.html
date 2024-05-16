@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Jornada do Pequeno Explorador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .page-container {
+        background-color: white;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        /* Centralizando o texto */
+        padding-top: 50px;
+        /* Adicionando espaço para a engrenagem */
+      }
+
+      h1,
+      p {
+        color: #000;
+        /* Fontes pretas */
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      p {
+        text-indent: 20px;
+        line-height: 1.6;
+      }
+
+      .button-container {
+        text-align: center;
+        margin-top: 20px;
+        /* Adicionando espaço entre o texto e os botões */
+      }
+
+      .button {
+        padding: 15px;
+        background-color: #4CAF50;
+        /* Cor verde para os botões "<" e ">" */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        /* Deixando os botões com bordas mais arredondadas */
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+        /* Escurecendo a cor ao passar o mouse */
+      }
+
+      .gear-button {
+        padding: 15px;
+        background-color: #ccc;
+        /* Cor cinza para o botão de engrenagem */
+        color: black;
+        border: none;
+        border-radius: 50%;
+        /* Deixa o botão mais redondo */
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 18px;
+        position: absolute;
+        /* Posicionamento absoluto */
+        top: 10px;
+        /* Distância do topo */
+        right: 10px;
+        /* Distância da direita */
+        z-index: 2;
+        /* Coloca a engrenagem sobre o conteúdo */
+      }
+
+      .gear-button:hover {
+        background-color: #bbb;
+        /* Escurece um pouco a cor ao passar o mouse */
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 10px;
+        background-color: #ddd;
+        margin-top: 20px;
+      }
+
+      .progress {
+        width: 0;
+        height: 100%;
+        background-color: #4CAF50;
+        /* Cor azul para a barra de progresso */
+      }
+
+      /* Estilos para o modo preto e branco */
+      .black-and-white {
+        filter: grayscale(100%);
+        /* Converte para preto e branco */
+      }
+
+      .black-and-white .page-container {
+        background-color: #333;
+        /* Fundo cinza escuro */
+      }
+
+      .black-and-white .button {
+        background-color: #fff;
+        /* Botões brancos */
+        color: #000;
+        /* Texto preto */
+      }
+    </style>
+    <script type="text/javascript" src="./index.js" defer=""></script>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+
+  <body>
+    <div id="pageContainer" class="page-container">
+      <button class="gear-button" onclick="toggleBlackAndWhite()">⚙️</button>
+      <h1>Página 1</h1>
+      <p>Era uma vez, em uma pequena cidade, vivia um menino chamado Lucas. Lucas adorava explorar e descobrir coisas novas.</p>
+      <div class="progress-bar">
+        <div id="progress" class="progress"></div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="button" onclick="previousPage()">&lt;</button>
+      <button class="button" onclick="nextPage()">&gt;</button>
+    </div>
+
+    <script>
+      let currentPage = 1;
+      const totalPages = 9;
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePage();
+        }
+      }
+
+      function previousPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePage();
+        }
+      }
+
+      function toggleBlackAndWhite() {
+        const body = document.body;
+        body.classList.toggle('black-and-white');
+      }
+
+      function updatePage() {
+        const pageContainer = document.getElementById('pageContainer');
+        pageContainer.innerHTML = `
+                <button class="gear-button" onclick="toggleBlackAndWhite()">⚙️</button>
+                <h1>Página ${currentPage}</h1>
+                <p>${getPageContent(currentPage)}</p>
+                <div class="progress-bar">
+                    <div id="progress" class="progress" style="width: ${currentPage / totalPages * 100}%;"></div>
+                </div>
+            `;
+      }
+
+      function getPageContent(pageNumber) {
+        switch (pageNumber) {
+          case 1:
+            return "Um dia, Lucas decidiu embarcar em uma aventura para encontrar o tesouro perdido que diziam estar escondido na floresta além da cidade.";
+          case 2:
+            return "Com sua mochila nas costas e um mapa em mãos, Lucas começou sua jornada. Ele sabia que precisava ser corajoso e esperto para enfrentar os desafios que encontraria pelo caminho.";
+          case 3:
+            return "No caminho, Lucas encontrou um riacho. Ele teve que usar suas habilidades de navegação para atravessá-lo com segurança, pulando de pedra em pedra.";
+          case 4:
+            return "Mais adiante, Lucas se deparou com uma árvore gigante. Ele teve que usar sua criatividade para construir uma escada improvisada e subir até o topo, de onde pôde avistar a próxima etapa de sua jornada.";
+          case 5:
+            return "Finalmente, Lucas chegou à entrada de uma caverna escura. Ele acendeu sua lanterna e entrou corajosamente, determinado a encontrar o tesouro perdido.";
+          case 6:
+            return "Dentro da caverna, Lucas encontrou vários desafios, como quebra-cabeças e enigmas. Ele teve que usar sua inteligência e perspicácia para resolvê-los um a um.";
+          case 7:
+            return "Depois de superar todos os desafios, Lucas finalmente chegou à sala do tesouro. Ele abriu o baú e ficou maravilhado com as joias brilhantes e moedas antigas que encontrou lá dentro.";
+          case 8:
+            return "Lucas voltou para casa com o tesouro, sentindo-se orgulhoso de sua conquista. Ele aprendeu que com coragem, determinação e inteligência, podemos superar qualquer desafio que enfrentamos em nossas vidas.";
+          default:
+            return "";
+        }
+      }
+
+      updatePage();
+    </script>
+
+
+  </body>
+
+</html>
